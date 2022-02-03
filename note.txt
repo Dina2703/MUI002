@@ -1,0 +1,23 @@
+https://mui.com/customization/default-theme/     //use this default theme objects to override the themes.
+
+* variantMapping allows us the same components work where component allows us to choose the default DOM element that you component  gets rendered on top of.  VarinatMapping allow us to do that for evey single variant within your typography. Example:
+if typography varinat="h1", you can add props 
+variantMapping={{
+  h1: 'span',
+}}
+now all the 'h1'- s turned to 'span' element(can see via dev tool), but looks the same as 'h1' on the VIEW/browser user sees as 'h1'.
+
+------------ Css MUI typography--------------
+import {makeStyles} from '@material-ui/core/styles';
+*  fisrt step define the custom style
+const useStyles = makeStyles({
+gutterBottom: {                
+  marginBottom: '0.6em';
+}
+})
+*  inside the just before the return() inside the component call the useStyles() and store its value to a const, like:
+const classes = useStyles();
+*   second apply the custom style to the component via 'classes' object.
+<Typography className={classes.gutterBottom} variant='h2'>
+Hello
+</Typography>
