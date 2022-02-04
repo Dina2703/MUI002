@@ -1,10 +1,23 @@
 import React from "react";
-import { Typography, Button, Container } from "@material-ui/core";
-import AcUnitTwoToneIcon from "@material-ui/icons/AcUnitTwoTone";
+import { Typography, Button, Container, makeStyles } from "@material-ui/core";
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
-import KeyboardArrowRightTwoToneIcon from "@material-ui/icons/KeyboardArrowRightTwoTone";
+
+const useStyles = makeStyles({
+  btn: {
+    fontSize: 60,
+    backgroundColor: "violet",
+    "&:hover": {
+      backgroundColor: "blue",
+    },
+  },
+  title: {
+    textDecoration: "underline",
+    marginBottom: 20,
+  },
+});
 
 export default function Create() {
+  const classes = useStyles();
   return (
     <Container>
       <Typography
@@ -12,26 +25,20 @@ export default function Create() {
         component="h2"
         gutterBottom
         color="textSecondary"
+        className={classes.title}
       >
         Create a new Note
       </Typography>
       <Button
+        className={classes.btn}
         type="submit"
         color="secondary"
         variant="contained"
         onClick={() => console.log("clicked")}
-        endIcon={<KeyboardArrowRightTwoToneIcon />}
-        startIcon={<SendTwoToneIcon />}
+        endIcon={<SendTwoToneIcon />}
       >
         Submit
       </Button>
-      <br />
-      <AcUnitTwoToneIcon color="secondary" fontSize="large" />
-      <AcUnitTwoToneIcon color="secondary" fontSize="small" />
-      <AcUnitTwoToneIcon color="action" fontSize="small" />
-      <AcUnitTwoToneIcon color="error" fontSize="small" />
-      <AcUnitTwoToneIcon color="disabled" fontSize="small" />
-      <AcUnitTwoToneIcon />
     </Container>
   );
 }

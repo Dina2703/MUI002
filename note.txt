@@ -25,3 +25,30 @@ Hello
 </Typography>
 
 <Button> the      disableElevation prop to put away the bottom shadow from the button.
+
+____________MUI Icons_____________
+ npm install @material-ui/icons   // firts install the icons package
+ then import  the right Icon you need from the package, and ute it as a component.
+ You can put it inside the <Button> component using endIcon or startIcon props.
+
+ _________________makeStyles Hook MUI_____________
+ makeStyles() function and using that function we can create CSS classes and rules using JS objects, and this function returns to us a react hook which we can then use inside our component to acces those styles and classes and we can apply them to any elements in our React component.
+
+ IMPORTANT!!
+ import { makeStyles } from "@material-ui/core";  //you need to distructur it like so, because it's not a component, it s a FUNCTION.
+then we have to use this function outside of our component to begin with. We gonna store the result of this function in a const 'useStyles'. And inside the makeStyles() function we passing an object our different css classes and rules. Each property inside this object is gonna be a css class( like: btn), and the object will specify the different  properties of this button, the properties should be in camel case.
+Example: 
+const useStyles = makeStyles({
+  btn: {
+    fontSize: 60,
+  },
+});
+
+then, fire the hook inside the Component and and store the value into const 'classes', and this hooke returns to us an object with all of the different classes on it, so we can access them.
+like:  className={classes.btn} inside the <Button> 
+__________hover state______________
+How to apply the 'hover' state to the class.
+inside the useStyles() pass to any class you want to have hover state.
+    "&:hover": {
+      backgroundColor: "blue",
+    },
