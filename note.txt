@@ -100,3 +100,45 @@ Another way of creating custom Theme is by using the Colors objects from MUI, li
     fontWeightBold: 700,
   },
 //all these fontSizes we picked from the google-font.
+
+--------Text Field--------------
+import <TextField> from MUI,
+then create a plain <form> tag, and you can give it the 
+* 'noValidate'  -  props, which says to the browser, don't use the built-in validation messages, we gonna hanlde it ourselves. 
+* 'autoComplete='off''   - props which turns off the ability to autocomplete anything when you started to type.
+So inside the <form> put <TextField />
+* 'label' props you can use inside the <TextField />.
+* 'variant' props (outlined,filled, standard )
+* fullwidth  props to make the full 100% width for the TextField
+* required props  gives a small '*' .
+we can add CSS class to this via makeStyles() function and useStyles() hook
+* multyline      /works with the rows prop(below)
+* rows={ 4 }     / that means 4 rows of text inside the text field.
+
+----------To track the user input // TextField and State----------------
+to track what a user types into this TextField, and store them in some kinda state.
+we can add:
+onChange event, which fires, 
+* first  create a bit of state to store the data.
+
+const handleSubmit = (e) => {
+e.preventDefault();   //this prevens from refreshing the page, we don't want that.
+  if (title && details) {        //thanks to this line, if one of te these two fields is empty, the form doesn't let you submit the form. Kind validation thing
+  console.log(title, details);
+  }
+};
+-----------How to add an error states to the <TextField />
+error={true}     //pass it into <TextField /> as props. Of it's true, it shows some kinda error feedback, like red border and label. 
+ * to make the error dynamic, 
+* first define some state for them, for two TextFieldfa-spin  
+const [titleError, setTitleError] = useState(false);   / we need to set them to false, to begin with.
+const [detailsError, setDetailsError] = useState(false);
+
+then, pass them to <TextField />, like  
+'error={titleError}'
+then, inside the handleSubmit()
+we need to add these setTitleError & setDetailsError hooks, to set the state to false after the each submitted/ submit button pressed, then we do the checks and only set them to true if they're not valid.  Otherwise, after first the fail(if you tried to submit the empty form, you get error), the error messages(red border and label)  don't go away.
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDetailsError(false);
+    setTitleError(false);
