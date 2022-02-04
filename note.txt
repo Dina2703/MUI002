@@ -52,3 +52,51 @@ inside the useStyles() pass to any class you want to have hover state.
     "&:hover": {
       backgroundColor: "blue",
     },
+
+------------------THEME in MUI---------------
+Theme is in MUI is a bit like a big object with all of these different properties and values which specify things like what what color should be the primary and secondary, all CSS things.
+
+We need to create our custom Theme in the App.js, so it can wrap all our components, in that way our entire application can access this Theme.
+* The first step 
+import { createTheme, ThemeProvider } from "@material-ui/core";   /at the top of  the App.js
+
+createTheme() this function helps to create the custom theme object.
+ThemeProvider component  is gonna wrap our application and pass them the custom theme that we created with createTheme() function.
+
+* the second step
+createTheme({}) this function takes in an object as an argument. And this object represents the theme we want to create. WE have to pick and choose which property we want to override( look at the default theme page in MUI)
+exapmle, if we want to override the primary color, we need to define property 'palette' -> 'primary' -> 'main', how it shown in the theme object, and we can pass any HEX code we want for the color, like:
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#fff",
+    },
+  },
+});
+* third step 
+We need to provide the application with this Theme(we jsut created).
+return(
+   <ThemeProvider theme={theme}>
+   children/some Components
+   <ThemeProvider>
+);
+
+__________Colors objects from MUI-------------
+Another way of creating custom Theme is by using the Colors objects from MUI, like: 
+  secondary: purple,   / just like that, pass it to the 'palette' object. purple is the object in MUI, not the single color, which has different properties like 'light', 'dark', other.
+
+
+  ---------------Custom Font------------
+  we can use our own custom font, instead of 'roboto'(which is the main theme for font) in every component. For that we can use 'Google Fonts'. pick the right one, select the different font sized (by clicking the '+ Select this style'), press 'import' and grab the @import line, which imports the font into our project.
+  You can use <link> to add it into our HTML file. or @import to add it into index.css file.
+  * the second step is add some styles.
+  in App.js inside the createTheme({}) pass a 'typography' property, to this pass the props with values, like 
+
+    typography: {
+    fontFamily: "Quicksand",
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+  },
+//all these fontSizes we picked from the google-font.

@@ -2,19 +2,7 @@ import React from "react";
 import { Typography, Button, Container, makeStyles } from "@material-ui/core";
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 
-const useStyles = makeStyles({
-  btn: {
-    fontSize: 60,
-    backgroundColor: "violet",
-    "&:hover": {
-      backgroundColor: "blue",
-    },
-  },
-  title: {
-    textDecoration: "underline",
-    marginBottom: 20,
-  },
-});
+const useStyles = makeStyles({});
 
 export default function Create() {
   const classes = useStyles();
@@ -25,12 +13,21 @@ export default function Create() {
         component="h2"
         gutterBottom
         color="textSecondary"
-        className={classes.title}
       >
         Create a new Note
       </Typography>
+
       <Button
-        className={classes.btn}
+        type="submit"
+        color="primary"
+        variant="contained"
+        onClick={() => console.log("clicked")}
+        endIcon={<SendTwoToneIcon />}
+      >
+        Submit
+      </Button>
+      <br />
+      <Button
         type="submit"
         color="secondary"
         variant="contained"
