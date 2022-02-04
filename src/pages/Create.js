@@ -5,6 +5,11 @@ import {
   Container,
   makeStyles,
   TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+  FormControl,
 } from "@material-ui/core";
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 
@@ -25,25 +30,24 @@ export default function Create() {
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
+  const [category, setCategory] = useState("todos");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDetailsError(false);
     setTitleError(false);
-    if (title && details) {
-      console.log(title, details);
-    }
+    setDetailsError(false);
+
     if (title === "") {
       setTitleError(true);
     }
     if (details === "") {
       setDetailsError(true);
     }
-    if (details === "" && title === "") {
-      setDetailsError(true);
-      alert("Pleadse enter the Title and Details");
+    if (title && details) {
+      console.log(title, details, category);
     }
   };
+
   return (
     <Container>
       <Typography
@@ -78,7 +82,22 @@ export default function Create() {
           onChange={(e) => setDetails(e.target.value)}
           error={detailsError}
         />
-
+        <FormControl className={classes.field}>
+          <FormLabel>Note category</FormLabel>
+          <RadioGroup
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <FormControlLabel value="money" control={<Radio />} label="Money" />
+            <FormControlLabel value="todos" control={<Radio />} label="Todos" />
+            <FormControlLabel
+              value="reminder"
+              control={<Radio />}
+              label="Reminder"
+            />
+            <FormControlLabel value="work" control={<Radio />} label="Work" />
+          </RadioGroup>
+        </FormControl>
         <Button
           className={classes.btn}
           type="submit"

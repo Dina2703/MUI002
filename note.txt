@@ -142,3 +142,32 @@ we need to add these setTitleError & setDetailsError hooks, to set the state to 
     e.preventDefault();
     setDetailsError(false);
     setTitleError(false);
+
+    ---------Radio & RadioGroup-----------
+    <RadioGroup>  allows us select only one at a time from the given  <Radio> options.
+    exapmle: 
+<RadioGroup>
+  <Radio value="hello" />
+  <Radio value="goodbye" />
+</RadioGroup>
+
+------------Form Control Label * THE BEST WAY FOR RADIO BUTTONS-----------
+Form Control Label gives us a way to create a lable , which kind of wraps around the control the <Radio> button.
+for that use <FormControlLabel>, like:
+<RadioGroup>
+<FormControlLabel value="money" control={<Radio /> label="Money" />
+<FormControlLabel value="work" control={<Radio />} label="Work" />
+</RadioGroup>
+===============To Store a value selected from the Radio==========
+we need some state for that.
+To set the default value for <Radio>, we need to show it in the state initial value, as   const [category, setCategory] = useState("todos"); then, inside the opening RadioGroup tag put ---> <RadioGroup value={category}>, which will show the initail value for 'categoty', that we set inside the state. 
+the way to update that 'category'  value. whenever a user selects the different value. We can do it by using the onChange(), which takes the event object(e), like:
+<RadioGroup
+value={category}
+onChange={(e) => setCategory(e.target.value)}
+>
+
+-------------  FormLabel, FormControl -------------
+they are like A WRAPPERS fro the different section, certain control area of the form.
+ <FormControl> to wrap all sections of the Form
+ <FormLabel> to wrap the form Label.
