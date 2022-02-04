@@ -258,3 +258,34 @@ import { useHistory } from "react-router-dom";       /first import
 
 ----------Card Component from MUI-------------
  <Card elevation={1}> the props makes the buttom shadow less, or you can make it bigger by passing the higher number elevation={3}
+use documenation MUi for Card, and its templates, can copy from there, and adapt for your project.
+
+------------Delete Note and DELETE Request----------
+We want to delete a note when the <DeleteOutlined /> pressed, trash can icon. To do so, we need to:
+* first
+add onClick event on <IconButton onClick(() => console.log("delete pressed", note.title))     //first check if the button working
+* then we need to edit the data, and ewe need to do that inside the 'Notes' Component, because there we have the local data, which is stored in 'notes' by useState. And we need to do 2 things, 1) we need to actually send a DELETE request using JSON Server so it deletes it from our db.json file, 2) but we need also update our local state, because even though we send that delete request we're not updating the local state. We need to remove the note from this state as well to keep the browser in sync with the data.Otherwise the deleted note will still been shown in the browser, even though we delete it and db.json does't have it.
+* lets create the handleDelete(id) function and we need to pass in an 'id' prop for the id of a note to delete. We gonna call this function from inside the <IconButton onClick()> inside the NoteCard.js and pass in that 'id' there.
+The function is async, the first thing is to fetch() pass in the same endpoint and add 'id' at the end(for the thing we wanna delete), the must pass in a second argument 'method' and give a "DELETE" value, to show the JSON server what we need to do.
+
+  const handleDelete = async (id) => {
+    await fetch(`http://localhost:8000/notes/${id}`, {
+      method: "DELETE",
+    });
+  };
+it's gonna wait until JSON server deletes that note from db.json file, It will look for the item with that 'id' then deletes it.
+Now we need to keep our local state in sync with that, in order to see it vanish from the page. 
+Let create the 'newNotes" function for that, notes.filter()  what this filter() method does is fires a function for each item in our 'notes' state, it gonna evaluate each one , if we return true for that  particular note it's going to keep it in the array, if it returns false it's gonna filter it out and then that new array is gonna be stored in 'newNotes'.
+
+  const newNotes = notes.filter((note) => note.id !== id);
+we want return note.id is not equal to the id that we get access to , which gets passed here --> 
+const handleDelete = async (id) => {}
+* note.id !== id * this means if they are equal this is going to be false, and vice versa.
+* then we need to set this new array as a value for 'notes', like  -> 
+setNotes(newNotes);
+* now we need to pass this handleDelete function into <NoteCrad />, like: 
+<NoteCard note={note} handleDelete={handleDelete}/>
+
+* then, use it from the <NoteCrad />, DON'T forget to destruture it first, then use to pass an 'id' like: <IconButton onClick={() => handleDelete(note.id)}> back to the <Notes />
+That's it!!!!
+
