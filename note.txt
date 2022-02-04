@@ -231,3 +231,26 @@ When JSON Server does that , this is gonna to add this new value the 'notes arra
 import { useHistory } from "react-router-dom";       /first import 
  const history = useHistory();                        /invoke that from inside the Component, then use this 'history' object, which has push() method, which allows us to push onto a new route, that we pass inside the('/'), like;
  .then(() => history.push("/"));
+
+
+ ------------Grid System MUI-------------
+ The Grid is based on a 12 column grid system.
+  So we can specify how many columns each grid item takes up  for different screen width, like <Grid item md={3}>.
+ Grid and Paper components, The <Paper>  we use inside the <Grid>, for our content inside.
+ * the first thing we need container and the second is items. 
+ we can make a conatiner from <Grid container> by passing into it 'container' props or use <Container> component, which adds a little bit of  margin and padding to the content, the same way we create <Grid item>
+ example: 
+<Grid container>
+  <Grid item xs={12} sm={6} md={3}>
+    <Paper>1</Paper>
+  </Grid>
+  <Grid item xs={12} sm={6} md={3}>
+    <Paper>2</Paper>
+  </Grid>
+  <Grid item xs={12} sm={6} md={3}>
+    <Paper>3</Paper>
+  </Grid>
+  <Grid item xs={12} sm={6} md={3}>
+    <Paper>4</Paper>
+  </Grid>
+</Grid>
