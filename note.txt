@@ -289,3 +289,24 @@ setNotes(newNotes);
 * then, use it from the <NoteCrad />, DON'T forget to destruture it first, then use to pass an 'id' like: <IconButton onClick={() => handleDelete(note.id)}> back to the <Notes />
 That's it!!!!
 
+_____________-Layout Component-_________________
+Layout component will wrap allof our pages, and give the same elements, like Navbar and Footer, that all pages can share. For that we need  import in into App.js where all of our Pages/Components rendered, and wrap all components, inside the <Router> Component.
+IMPORTANT!!!! if tou DON'T explicitly output the 'children' (which represents all inner content, pages) inside this layout, otherwise you can't see the Components, will see only the <Layout>, which covers whole page. like: 
+const Layout = ({ children }) => {
+  return <div>Layout {children}</div>;
+};
+
+-----------------Drawer---------
+<Drawer>  Component some props
+*  anchor="left"  means place the drawer on the left
+*  variant="permanent"   means the drawer is not hidden, displayed.
+  classes={{
+          paper: classes.drawerPaper,
+}} 
+this props inside the <Drawer> to override the Paper width inside the Drawer to the Drawer width we defined earlier. So make a Drawer paper wider(scoot it over to the right) to fit the drawer content.
+Now we have a problem, now the left side of our Page content covered by <Drawer>, it should be next to it. For that we neet to :
+1) write some CSS rules inside the useStyles
+root: {
+    display: "flex",
+  },
+2) apply it to the root component which wraps the Drawer and other content.
