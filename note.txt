@@ -171,3 +171,63 @@ onChange={(e) => setCategory(e.target.value)}
 they are like A WRAPPERS fro the different section, certain control area of the form.
  <FormControl> to wrap all sections of the Form
  <FormLabel> to wrap the form Label.
+
+ -------------Using JSON Server----------------
+ with Local state in our components means that every time we refresh the page it's going to reset our data to that initial state from our component.
+ Instead what we can do is work with a JSON file to store our data, and using JSON server to interact with it.
+ So JSON server basically wraps a json file with REST API  endpoint so that we can fetch data inside that JSON file using a get requset or add data to it using a POST request etc. 
+ So it's really good for testing and propotyping so that we don't have to worry about a server side logic or databases.
+ * the first step is creating a JSON file, where we will store our data. Structure should be: the root folder --> create 'data' folder inside it 'db.json'.
+How JSON Server works is that it looks at this json file and any top level property it sees as a resource. So in our case we have one top level property called 'notes', and it sees that as a particular resource in our JSON file, and it (JSON server) sets up endpoint to interact with that resource, so I can get all of the notes or could add to the 'notes' for example. In our case we have a three individual notes objects  inside the top level 'notes' object.The  each note has several properties, like 'title', 'details', 'category', 'id' (unique 'id' gonna be used by React when we cycle through this data later on and output it to the screen).
+* The next step is insalling JSON server onto your computer for this to work.
+----npm install -g json-server   //to install Globally. if you have it on your computer.then run
+we need a path to the JSON file from where we are right  , then specify the what port to run these endpoints on , then press 'enter' (it was GET request)
+----json-server --watch data/db.json --post 8000.
+http://localhost:8000/notes  to see you 'notes' json data got to this URL.
+------get the json-data  and place them into our componet-----------
+*   The first step, retrieve all of the data from the db.json and list them into 'Notes' component, so we can see them on the page.
+The way we gonna do this is by using the useEffect() hook in this 'Notes' component.
+useEffect() is gonna run a function for us when this component first loads and inside that function we can then you a fetch request to grab the data using the endpoint that JSON Server provides us with. To this useEffect() we gonna pass as the first argument a function to run, and the second argument an array [] for dependencies, An empty [] means tun run the passed function only once, when the component loaded first time.  
+IMPORTANT!!!!!The fetch() is async, so it takes some time to do.
+inside the fetch() pass the endpoint, like:
+ ------fetch("http://localhost:8000/notes"), it returns to us a promise, then we tack on a then() method which fires a finction, when fetch() gives us a data. And this .then() function gets access to this responce ofject(what comes from the fetch()).
+ This responce(res) object doen't contain the data directly and what we need to do is pass it into some kind of form we can work with and to do that we say 'res.json()', that is a function, which takes the json and passes it into a JS object/ or JS array in our case , because it's an array of objects we're getting back.
+ ----.then((res) => res.json())
+  This is async in itself and we return it right here. So we can tack on another .then()  method. In this time we get access to the actual  data(an array of objects).
+  * the next we want to store that data in some kind of state.
+  const [notes, setNotes] = useState([]);  // first create a state, and set the initial value to an empty array, then pass our data to it, like;
+   >GET request<
+useEffect(() => {
+fetch("http://localhost:8000/notes")
+  .then((res) => res.json())
+  .then((data) => setNotes(data));   // passing the data to useState()
+}, []);
+* now we have our data inside the component, now we need to output it to the browser, for that we need to cycle throught it. The way we do that in React is by using the map(). and return some template to display. like: 
+return (
+<div>
+  {notes.map((note) => (
+    <p key={note.id}>{note.title}</p>
+  ))}
+</div>
+);
+Now on the browser, you can see the output of some data on our page.
+   >POST request<
+To add data to JSON file, every time a user submits the form. 
+We gonna do that inside the Create.js,  inside the 'if (title && details) {here}'
+* first fetch() to the same endpoint, and this time add a second argument, which is an object. And this object is gonna have several properties inside it,
+the first one is method: "POST" , this tells fetch that we're making a POSt request to add data, the second one gonna be the 'header' property, which tells what type of content is going to be sent, like  
+--headers: { "Content-type": "application/json" },  
+the third we have the 'body', where we send the actual json data,  in our case we want to send 'title', 'category', and 'details'. first of all we need to stringify them into JSOn, we can't send a JS object. When we're transferring data using fetch it needs to be in JSON format. so we say JSON.stringify and pass in an object we wannna stringify, like: 
+body: JSON.stringify({
+  title,
+  details,
+  category,
+}),
+JSON.stringify takes all the passed values(title,details,category,), adds them to this object stringifies that then we're can send it in the POST request.
+When JSON Server does that , this is gonna to add this new value the 'notes array, inside our db.json file. And JSON server auto adds unique id prooperty to our new note object.
+
+* the next step, because fetch() is async, we can tack on, and redirect the user to 'Notes' page. For that we can use useHistory() hook built in REACT.
+----------useHistory()----------
+import { useHistory } from "react-router-dom";       /first import 
+ const history = useHistory();                        /invoke that from inside the Component, then use this 'history' object, which has push() method, which allows us to push onto a new route, that we pass inside the('/'), like;
+ .then(() => history.push("/"));
