@@ -371,3 +371,30 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(3),  //using theme props.
     },
     ....
+
+---------------How to pass optional arguments into makeStyles() or into the different classes or properties that we generate with make styles.  For example, we want to make the value for pborder' be dynamic, means if some kind of evaluation is true I'll have aspecific border if it's false it won't. 
+const useStyles = makeStyles({
+  test: {
+    border: 
+  }
+})
+We want that dynamic check to be based on the category of the 'note', so we need to somehow pass in this 'note' into makeStyles(). For that, we need to pass 'note' as an argument inside the useStyles(note), like:
+const classes = useStyles(note)    //inside the Component <NoteCard>, like:
+
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles({
+  test: {
+    border: (note) => {
+      if (note.category === "work") {
+        return "1px solid red";
+      }
+    },
+  },
+});
+
+function NoteCard({ note, handleDelete }) {
+  const classes = useStyles(note);
+  ....
+  now we can use it <Card> component, like:  
+  <Card elevation={1} className={classes.test}>
