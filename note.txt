@@ -468,3 +468,34 @@ To do that, we  have to pass in the 'note' to use styles, because we want dynami
     }        
 at the end for the last category option just return the style  you need, without checking with if(), because if none of the above three categories it must be the fourth one.
 red[700]; this number represents the shade of a color.
+tha's it  here!!!!
+
+----------React Masonry CSS -----------
+Masonry is 3-rd party package for React, which uses Flex system on the hood.
+* usage 
+npm i react-masonry-css;    /install it
+import Masonry from 'react-masonry-css'     /import it
+<Masonry> is a Component with different props. and CSS rules to define what we need.
+* 1)  We gonna change <Grid> MUI to <Masonry> in Notes.js.
+* 2) We gonna grab the  --->
+"
+breakpointCols={}
+className="my-masonry-grid"
+columnClassName="my-masonry-grid_column">
+" 
+<--- from the template from react-masonry-css page, and pass it to <Masonry>
+now, we need to add the styles for the, copy the CSS template from the react-masonry-css page, and passed it in index.css page
+* By the way, <Masonry> styling props targets a <div> element, so items should be wrap with <div>.
+* now we need to deal with custom breakpointCols={}, for that we gonna create a const breakpointCols and create an object thing where we can define the number of columns for different width, like ------>
+  const breakpoint = {
+    default: 3,
+    1100: 2,
+    700: 1
+  }
+  <------ now pass it the <Masonry> as a breakpointCols={breakpoint},
+  * one last thing to fix is to remove background, otherwise it will appear on the card's angles.
+.my-masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  background: grey;   // remove this line
+  margin-bottom: 30px;
+}
