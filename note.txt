@@ -437,3 +437,34 @@ the height of this 'toolbar' class should be equal to the height of the <ToolBar
   }; 
 flexGrow: 1  it takes up all the possible space horixontally available to it, that means it's gonna push the next element all the way over to the right.
 that's it here!!!!
+
+-----Avatar in the AppBar MUI------------
+<Avatar> import from MUI,
+now use it, we stored our avatar img inside the 'public' folver so, we can give the path to it. to src prop, like --->
+ <Avatar src="/mario-av.png" className={classes.avarat} />  //
+to give some sapce at the left for the Avatar,  we used theme object.
+  avarat: {
+      marginLeft: theme.spacing(2),   //means 2 times the base spacing. which is 8px* 2 = 16px in total
+    },
+
+---------add <Avatar> to each Card -----------------
+it's going to be color coordinated and also contain a letter which matches the first letter of the category, exapmle for any 'todos'  it might be purple avatar with capital 'T' on it, and for 'work' - yellow and W letter, so on.  In this way it's easy to see the categoty.
+
+We gonna work on NoteCard.js, and we gonna add <Avatar> into the <CardHeader> via 'avatar' props.
+Now we gonna use opening and closing tags of <Avatar> to add a letter, like:
+<Avatar>{note.category[0].toUpperCase()}</Avatar>  
+here we need to get the first letter in the categoty, we have access to 'note' then we can deep in, to 'category' and define the first letter as [0], then make it capitalized.
+Now on the browser, we have to see the avatar with the letter of the category.
+* Now want to color coordinate these avatars.
+To do that, we  have to pass in the 'note' to use styles, because we want dynamically give the avatars a different background color.
+1) give the className={classes.avatar}  to <CardHeader>, then style it using if condition statement, like  --->
+ avatar: {
+    background: (note) => {
+      if (note.category === "work") {
+        return red[700];
+      }
+      ...
+        return blue[500];
+    }        
+at the end for the last category option just return the style  you need, without checking with if(), because if none of the above three categories it must be the fourth one.
+red[700]; this number represents the shade of a color.

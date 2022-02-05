@@ -23,6 +23,12 @@
       "details": "For orange testing",
       "category": "money",
       "id": 4
+    },
+    {
+      "title": "Zhan's journal",
+      "details": "Today gonna be amazing day, let's make it!!",
+      "category": "reminder",
+      "id": 5
     }
   ]
 }

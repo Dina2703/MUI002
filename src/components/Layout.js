@@ -8,6 +8,7 @@ import {
   ListItemText,
   AppBar,
   Toolbar,
+  Avatar,
 } from "@material-ui/core";
 import { AddCircle, SubjectOutlined } from "@material-ui/icons";
 import { useLocation, useHistory } from "react-router-dom";
@@ -44,6 +45,9 @@ const useStyles = makeStyles((theme) => {
     date: {
       flexGrow: 1,
     },
+    avarat: {
+      marginLeft: theme.spacing(2),
+    },
   };
 });
 const Layout = ({ children }) => {
@@ -73,6 +77,7 @@ const Layout = ({ children }) => {
             Today is the {format(new Date(), "do MMMM Y")}
           </Typography>
           <Typography>Login</Typography>
+          <Avatar src="/mario-av.png" className={classes.avarat} />
         </Toolbar>
       </AppBar>
 
