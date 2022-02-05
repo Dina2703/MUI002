@@ -355,3 +355,19 @@ className={
   location.pathname === item.path ? classes.active : null
 }
 That's it!!!
+
+-----------------makeStyles()---------------
+to use the defined values of MUI theme object, we can turn our makeStylesconst useStyles = makeStyles(() => {
+  return {
+
+  }
+}) 
+to a function which returns the object, and pass in all of our properties for styling. Now instead of passing in the object as a parameter, we're now passing a function which returns the object, now we can take in arguments in the function, and the argument we auto get access to is the 'theme' object of MUI. Now we can use it and its different properties on it inside our classes.
+const useStyles = makeStyles((theme) => {
+  return {
+    page: {
+      background: "#dfe6f2",
+      width: "100%",
+      padding: theme.spacing(3),  //using theme props.
+    },
+    ....
