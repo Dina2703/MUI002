@@ -398,3 +398,42 @@ function NoteCard({ note, handleDelete }) {
   ....
   now we can use it <Card> component, like:  
   <Card elevation={1} className={classes.test}>
+That's it!!!!!!!
+
+---------------App Bars in MUI-----------------------
+For this project we'll use AppBar, Toolbar, so import them to Loyaout.js
+ToolBar   - will nest inside the AppBar, and where we gonna put our text and other stuff.
+AppBar itself does'n do anything, the ToolBar inside it gives some margin, height, spacing etc. So title, and icons have to go inside this <ToolBar>. a title
+have to go inside <Typography>, so you can see it.
+On the screen you might see, that the AppBar covered the top of the page and the sidebar covered some area on the left, to fix it we need to AppBar the specific width.
+To use calculator, we can sue 'calc()' function inside the makeStyles(), like: 
+appbar: {
+    width: `calc(100% - ${drawerWidth}px)`,
+},
+${drawerWidth} this is our variable that we created at the top of Layout.js
+and apply this class to <AppBar>.
+Now we need to fix the page content, which is covered by AppBar. for that, we can create a space between the AppBar and the {children}(which represents the content for each page) with <div>, like  
+ <div className={classes.toolbar} />
+the height of this 'toolbar' class should be equal to the height of the <ToolBar>. for that we fonna use 'mixin' which grabs us the classes of this <Toolbar> component. we do that by accessing the 'theme' inside make styles.
+*  mixin  - is a collection of styles used by one of MUI components.So, inside the makeStyles() add --->
+ toolbar: theme.mixins.toolbar
+ it gets the classes associated with the <Toolbar> component, including the height. So now the toolbar class will have the height of the <Toolbar>  component, and the page looks good.
+
+ * How to remove the dropshadow on the <AppBar>, by giving the 'elevation={0}' props to <AppBar>
+
+ * How to put current date on <AppBar>, by changing ---->
+ <Typography variant="h5">{Date().toString()}</Typography>
+ to change the format, we can use 3-rd party package called 'date-fns',
+ npm install date-fns   //to install it. this package allows us to format the Date in different ways.
+ ** usage 'date-fns':
+ import { format } from "date-fns";   /first as always import it.
+ now instead of {Date().toString()} we can put {format(new Date(), '')}}
+ give the format() method 'new Date' object as the first arrgument, and the second argument is format string, examle: "do MMMM Y", final what we used inside the <Typography> is  
+----- Today is the {format(new Date(), "do MMMM Y")} 
+
+* add 'Login' text.  to move the lext to the right we can give the <typography> with the Date className={classes.date}, and give it -->    date: {
+      flexGrow: 1,
+    },
+  }; 
+flexGrow: 1  it takes up all the possible space horixontally available to it, that means it's gonna push the next element all the way over to the right.
+that's it here!!!!
