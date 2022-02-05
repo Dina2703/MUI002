@@ -310,3 +310,48 @@ root: {
     display: "flex",
   },
 2) apply it to the root component which wraps the Drawer and other content.
+
+-------List and List items----------------
+<List> is kind of a wrapper for every list we create. kind <ul> tag in HTML
+<ListItem> is kind of wrapper for each item, like <li> in HTML.
+<ListItemIcon>  and <ListItemText> these for the content inside the <ListItem>.
+Example:
+<List>
+  <ListItem>
+    <ListItemText primary="Home" />   //primaty means here for primary text, not color.
+ </ListItem>
+ <ListItem>
+   <ListItemText primary="About" />
+ </ListItem>
+</List>
+
+Instead of hard coding lsit inside the return inside  the Component, we can create a bit of data for our list-items and store it in const. This list-items gonna be an array, and this array will hold all our items for the side Drawer.
+Reason is we're not bloting our template with hard-coded stuff, we gonna to cycle through this list using a map() method, and it makes our code cleaner, 
+Secondary, if you have more menu items in the future , it's easier to add them this way. Each array object is gonna be represented by an object, like: 
+*  button props in <ListItem> make the item clickaable, and add onClick event, where we can link to another page.
+Using useHistory() hook we can add the the items onClick() to move to the different pages, as Menu works. 
+import useHistory(), then invoke, it returns the object, which store to const 'history, then use its push() method for redirecting, like: 
+
+<ListItem
+  key={item.text}
+  button
+  onClick={() => history.push(item.path)}
+>
+  <ListItemIcon>{item.icon}</ListItemIcon>
+  <ListItemText primary={item.text} />
+</ListItem> 
+
+-------------Creating active page------------
+To show the item as active when its page is open, to highligh the item on the menu.
+* 1) create 'active' class in our makeStyles();
+  active: {
+    background: "#f4f4f4",
+  },
+* 2) step is find out if we currently on that page, we can use another hook,  useLocation() hook. first import and invoke it to get its object and store it in const., like  
+  
+  const location = useLocation();
+Now we can use it to determine what page we're on and dynamically output a className to the <ListItem>, like:   
+className={
+  location.pathname === item.path ? classes.active : null
+}
+That's it!!!
