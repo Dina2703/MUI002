@@ -29,6 +29,12 @@
       "details": "Today gonna be amazing day, let's make it!!",
       "category": "reminder",
       "id": 5
+    },
+    {
+      "title": "Im sorry",
+      "details": "am sorry for annoying you",
+      "category": "todos",
+      "id": 6
     }
   ]
 }

@@ -1,4 +1,7 @@
 __________ MUIv5.4.0 and v4 versions, pick one to work______________
+npm start             //to run app
+json-server --watch data/db.json --port 8000         //to run json-server.
+
 
 https://mui.com/customization/default-theme/     //use this default theme objects to override the themes.
 
